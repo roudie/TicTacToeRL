@@ -1,13 +1,15 @@
 import csv
 import random
-
-class Agent():
-    def __init__(self, game_class, epsilon=0.1, alpha=0.5, value_player='X'):
+import TicTacToeGame
+from IAgent import IAgent
+class Agent(IAgent):
+    def __init__(self, game_class, epsilon=0.3, alpha=1.0, value_player='X'):
+        super().__init__(game_class, 'X')
         self.V = dict()
-        self.NewGame = game_class
+        #self.NewGame = game_class
         self.epsilon = epsilon
         self.alpha = alpha
-        self.value_player = value_player
+        #self.value_player = value_player
 
     def state_value(self, game_state):
         return self.V.get(game_state, 0.0)
@@ -51,13 +53,13 @@ class Agent():
 
     def play_select_move(self, game):
         allowed_state_values = self.__state_values( game.allowed_moves() )
-        if game.player == self.value_player:
+        if game.player == self.marker:
             return self.__argmax_V(allowed_state_values)
         else:
             return self.__argmin_V(allowed_state_values)
 
     def demo_game(self, verbose=False):
-        game = self.NewGame()
+        game = self.game()
         t = 0
         while game.playable():
             if verbose:
@@ -79,7 +81,7 @@ class Agent():
             return '-'
 
     def interactive_game(self, agent_player='X'):
-        game = self.NewGame()
+        game = self.game()
         t = 0
         while game.playable():
             print(" \nTurn {}\n".format(t))
