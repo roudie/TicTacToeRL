@@ -1,24 +1,40 @@
 class TicTacToeGame():
+    last_move = None
     def __init__(self):
         self.state = '         '
         self.player = 'X'
         self.winner = None
 
-    def allowed_moves(self):
+    def allowed_next_states(self):
         states = []
         for i in range(len(self.state)):
             if self.state[i] == ' ':
                 states.append(self.state[:i] + self.player + self.state[i+1:])
         return states
 
-    def make_move(self, next_state):
+    def allowed_next_moves(self):
+        moves = []
+        for i in range(len(self.state)):
+            if self.state[i] == ' ':
+                moves.append(i+1)
+        return moves
+
+    def get_last_move(self):
+        return self.last_move
+
+    def make_move(self, next_move, marker):
         if self.winner:
             raise(Exception("Game already completed, cannot make another move!"))
-        if not self.__valid_move(next_state):
+        if self.state[next_move-1] != ' ':
+            raise (Exception("Cannot make move {} to {} for player {}".format(
+                self.state, next_move, self.player)))
+        next_move = self.state[:next_move - 1] + self.player + self.state[next_move:]
+        if not self.__valid_move(next_move):
             raise(Exception("Cannot make move {} to {} for player {}".format(
-                    self.state, next_state, self.player)))
+                    self.state, next_move, self.player)))
+        self.last_move = next_move
 
-        self.state = next_state
+        self.state = next_move
         self.winner = self.predict_winner(self.state)
         if self.winner:
             self.player = None
@@ -28,7 +44,7 @@ class TicTacToeGame():
             self.player = 'X'
 
     def playable(self):
-        return ( (not self.winner) and any(self.allowed_moves()) )
+        return ((not self.winner) and any(self.allowed_next_states()))
 
     def predict_winner(self, state):
         lines = [(0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6)]
@@ -42,7 +58,7 @@ class TicTacToeGame():
         return winner
 
     def __valid_move(self, next_state):
-        allowed_moves = self.allowed_moves()
+        allowed_moves = self.allowed_next_states()
         if any(state == next_state for state in allowed_moves):
             return True
         return False
