@@ -1,18 +1,33 @@
 import csv
 import random
 from Agents.IAgent import IAgent
+from Agents.QLearning import QLearning
+
 
 class AgentQLearning(IAgent):
     last_move = None;
-    def __init__(self, name='1', epsilon=0.01, alpha=1.0, learning=False):
+    def __init__(self, name='1', epsilon=0.01, alpha=1.0, learning=True):
         super().__init__(name)
         self.V = dict()
         self.epsilon = epsilon
         self.alpha = alpha
         self.learning = learning
+        self.QLearning = QLearning(None)
 
     # without learing
     def do_move(self, game):
+        self.QLearning.game = game
+        if self.marker == 'X':
+            self.QLearning.marker = 'O'
+        else:
+            self.QLearning.marker = 'X'
+        if game.last_move is not None:
+            self.QLearning.learn_move(game.last_state, game.last_move)
+        best_move = self.QLearning.get_best_move(game.state)
+        if best_move is None:
+            best_move = random.choice(game.allowed_next_moves())
+        self.QLearning.learn_move(game.state, best_move)
+        return best_move
         if self.learning:
             if game.get_last_move() is not None:
                 return self.learn_from_move(game, game.get_last_move())
@@ -32,8 +47,11 @@ class AgentQLearning(IAgent):
     def learn_from_episode(self, game):
         game = game()
         _, move = self.learn_select_move(game)
+        markers = ['O','X']
+        curr = True
         while move:
-            game.make_move(move)
+            game.make_move(move, markers[curr])
+            curr = not curr
             move = self.learn_from_move(game, move)
 
     def learn_from_move(self, game, move):

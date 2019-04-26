@@ -6,14 +6,14 @@ from Agents.HumanAgent import HumanAgent
 from GameCore.TicTacToeGame import TicTacToeGame
 from pprint import pprint
 import pandas as pd
-
+import itertools
 
 def demo_game_stats1(agent):
-    results = [agent.demo_game(TicTacToeGame) for i in range(10000)]
+    results = [agent.demo_game(TicTacToeGame) for i in range(100000)]
     game_stats = {k: results.count(k)/100 for k in ['X', 'O', '-']}
     print("    percentage results: {}".format(game_stats))
 
-def demo_game_stats(agent1, agent2=RandomAgent(), n=5000):
+def demo_game_stats(agent1, agent2=RandomAgent(), n=10000):
 
     game = GameManagement(agent1, agent2)
     result = dict()
@@ -32,13 +32,22 @@ def demo_game_stats(agent1, agent2=RandomAgent(), n=5000):
 
 if __name__ == '__main__':
     agent1 = AgentQLearning(name = '1', epsilon = 0.01, alpha = 3.0)
-    agent2 = HumanAgent()
+    agent2 = RandomAgent()
     agent3 = HumanAgent()
-    game = GameManagement(agent2, agent3)
-    game.start(True)
-    for i in range(50):
-        agent1.learn_game(TicTacToeGame, 1000)
-        game = GameManagement(agent1=agent1, agent2=agent2)
-        #game.start(True)
+    #game = GameManagement(agent2, agent3)
+    #game.start(True)
+    agent3 = AgentQLearning(name='2')
+    agent4 = AgentQLearning(name='3')
+    for i in range(100):
+        print(i*100 + 100, 'k')
         demo_game_stats(agent1)
+        demo_game_stats(agent4)
+        demo_game_stats(agent3)
+        demo_game_stats(agent3, agent1)
+        demo_game_stats(agent3, agent4)
+        demo_game_stats(agent4, agent1)
+
+
+
+
 
