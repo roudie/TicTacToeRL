@@ -33,12 +33,18 @@ class QLearning:
     def get_best_move(self, state):
         if state not in self.QTable:
             return None
-        max_V = max(self.QTable[state].values())
-        max_list = []
-        for key, val in self.QTable[state].items():
-            if val == max_V:
-                max_list.append([key, val])
-        return random.choice(max_list)[0]
+        allowed_state_values = self.game.allowed_moves()
+        if self.game.player == self.value_player:
+            best_move = self.__argmax_V(allowed_state_values)
+        else:
+            best_move = self.__argmin_V(allowed_state_values)
+        #max_V = max(self.QTable[state].values())
+        #max_list = []
+        #for key, val in self.QTable[state].items():
+        #    if val == max_V:
+        #        max_list.append([key, val])
+        #return random.choice(max_list)[0]
+        return best_move
 
     def get_reward(self, state):
         winner = self.game.predict_winner(state)
