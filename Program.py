@@ -31,21 +31,16 @@ def demo_game_stats(agent1, agent2=RandomAgent(), n=10000):
     pprint(result)
 
 if __name__ == '__main__':
-    agent1 = AgentQLearning(name = '1', epsilon = 0.01, alpha = 3.0)
+    agent1 = AgentQLearning(name = '1', epsilon = 0.9, alpha = 0.6)
     agent2 = RandomAgent()
-    agent3 = HumanAgent()
-    #game = GameManagement(agent2, agent3)
-    #game.start(True)
-    agent3 = AgentQLearning(name='2')
-    agent4 = AgentQLearning(name='3')
+    agent3 = AgentQLearning(name = '2', epsilon = 0.9, alpha = 0.6)
+
     for i in range(100):
         print(i*100 + 100, 'k')
+        demo_game_stats(agent1, agent3)
+
         demo_game_stats(agent1)
-        demo_game_stats(agent4)
         demo_game_stats(agent3)
-        demo_game_stats(agent3, agent1)
-        demo_game_stats(agent3, agent4)
-        demo_game_stats(agent4, agent1)
 
 
 

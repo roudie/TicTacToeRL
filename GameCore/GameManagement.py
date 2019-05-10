@@ -8,15 +8,13 @@ class GameManagement:
 
     def start(self, show=True):
         game = TicTacToeGame()
-        first_player = random.randint(0, 1)
-        if first_player == 0:
+        self.currentAgentId = random.randint(0, 1)
+        if self.currentAgentId == 0:
             self.agents[0].set_marker('O')
             self.agents[1].set_marker('X')
-            self.currentAgentId = 0;
         else:
             self.agents[0].set_marker('X')
             self.agents[1].set_marker('O')
-            self.currentAgentId = 1;
 
         t = 1
         while game.playable():
@@ -30,7 +28,8 @@ class GameManagement:
             else:
                 self.currentAgentId = 0
             t += 1
-
+            self.agents[0].learning(game, game.last_player)
+            self.agents[1].learning(game, game.last_player)
 
         if game.winner:
             if game.winner == self.agents[0].marker:

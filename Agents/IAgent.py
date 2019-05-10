@@ -11,6 +11,9 @@ class IAgent:
     def set_marker(self, marker):
         self.marker = marker
 
+    def learning(self, game, last_player):
+        pass
+
     def __str__(self):
         return "IAgent " + self.name
 

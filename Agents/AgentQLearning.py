@@ -11,31 +11,35 @@ class AgentQLearning(IAgent):
         self.V = dict()
         self.epsilon = epsilon
         self.alpha = alpha
-        self.learning = learning
+        self.learn = learning
         self.QLearning = QLearning(None)
 
-    # without learing
+    def learning(self, game, last_player):
+        self.QLearning.game = game
+        self.QLearning.marker = self.marker
+        self.QLearning.learn_move(game.last_state, game.last_move, last_player)
+
+
     def do_move(self, game):
         self.QLearning.game = game
-        if self.marker == 'X':
-            self.QLearning.marker = 'O'
-        else:
-            self.QLearning.marker = 'X'
-        if game.last_move is not None:
-            self.QLearning.learn_move(game.last_state, game.last_move)
+        self.QLearning.marker = self.marker
+
+        #if game.last_move is not None:
+        #    self.QLearning.learn_move(game.last_state, game.last_move)
         best_move = self.QLearning.get_best_move(game.state)
         if best_move is None:
             best_move = random.choice(game.allowed_next_moves())
-        self.QLearning.learn_move(game.state, best_move)
+
+        #self.QLearning.learn_move(game.state, best_move)
         return best_move
-        if self.learning:
-            if game.get_last_move() is not None:
-                return self.learn_from_move(game, game.get_last_move())
-            else:
-                _, move = self.learn_select_move(game)
-                return move
-        else:
-            return self.play_select_move(game)
+        #if self.learning:
+        #    if game.get_last_move() is not None:
+        #        return self.learn_from_move(game, game.get_last_move())
+        #    else:
+        #        _, move = self.learn_select_move(game)
+        #        return move
+        #else:
+        #    return self.play_select_move(game)
 
     def state_value(self, game_state):
         return self.V.get(game_state, 0.0)

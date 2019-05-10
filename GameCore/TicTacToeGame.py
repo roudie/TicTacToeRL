@@ -1,6 +1,7 @@
 class TicTacToeGame():
     last_move = None
     last_state = None
+    last_player = None
     def __init__(self):
         self.state = '         '
         self.player = 'X'
@@ -36,6 +37,7 @@ class TicTacToeGame():
                     self.state, next_move, self.player)))
         self.last_move = last_move_buff
         self.last_state = self.state
+        self.last_player = self.player
         self.state = next_move
         self.winner = self.predict_winner(self.state)
         if self.winner:
@@ -46,6 +48,9 @@ class TicTacToeGame():
             self.player = 'X'
 
     def simulate(self, move):
+        x = '123456789'
+        y = x[:move - 1]
+        z = x[move:]
         next_state = self.state[:move - 1] + self.player + self.state[move:]
         return next_state
 
