@@ -66,10 +66,10 @@ class QLearning:
             if winner == 'X':
                 return 1.0
             else:
-                return 0.0
+                return -1.0
         else:
             if len(self.game.allowed_next_moves()) == 0:
-                return 0.5
+                return 0.0
             else:
                 return 0.0
 
