@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     history = []
     result_df = pd.DataFrame()
-    for i in range(100):
+    for i in range(2):
         print(i)
         hist, result = demo_games(agent1, n=100, show_result=False)
         history=history + hist
@@ -41,10 +41,14 @@ if __name__ == '__main__':
     result_df.plot(kind='line', x='n', y='Agent Q-Learning 1', ax=ax)
     result_df.plot(kind='line', x='n', y='Random agent 1', ax=ax)
 
+
     plt.show()
-    #FilesManagement.save(history, 'games.pkl')
-    #data = FilesManagement.load('games.pkl')
-    #print(data)
+    hist, result = demo_games(agent1, n=100, show_result=False, generate_history=True)
+    history = history + hist
+
+    FilesManagement.save(history, 'games.pkl')
+    data = FilesManagement.load('games.pkl')
+    print(data)
 
 
 

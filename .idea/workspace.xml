@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a36f065f-953f-49d2-8f37-7d4537c1288c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/FilesManagement.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/AgentQLearning.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/AgentQLearning.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agents/QLearning.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agents/QLearning.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameCore/GameManagement.py" beforeDir="false" afterPath="$PROJECT_DIR$/GameCore/GameManagement.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.py" beforeDir="false" afterPath="$PROJECT_DIR$/Program.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,8 +17,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Program.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="340">
-                  <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+                <state relative-caret-position="155">
+                  <caret line="50" selection-start-line="50" selection-end-line="50" />
                   <folding>
                     <element signature="e#0#42#0" expanded="true" />
                   </folding>
@@ -338,15 +333,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12294043" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32974428" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23553163" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39703903" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.23553163" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39703903" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32932165" />
@@ -388,8 +382,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Program.py</url>
-          <line>34</line>
-          <option name="timeStamp" value="40" />
+          <line>49</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Program.py</url>
+          <line>50</line>
+          <option name="timeStamp" value="42" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -550,8 +549,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Program.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+        <state relative-caret-position="155">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
           </folding>
