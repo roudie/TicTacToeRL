@@ -4,6 +4,7 @@ from GameCore.GameManagement import GameManagement
 import FilesManagement
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeRegressor
 
 def demo_games(agent1, agent2=RandomAgent(), n=100, show_result=True, generate_history=False, learn_agents=True):
     game = GameManagement(agent1, agent2)
@@ -46,9 +47,41 @@ if __name__ == '__main__':
     hist, result = demo_games(agent1, n=100, show_result=False, generate_history=True)
     history = history + hist
 
-    FilesManagement.save(history, 'games.pkl')
-    data = FilesManagement.load('games.pkl')
-    print(data)
+    #FilesManagement.save(history, 'games.pkl')
+    #data = FilesManagement.load('games.pkl')
+    #print(len(data))
+
+    # prepare dataframe
+    #games_df = pd.read_csv('games.csv')
+    #newgames_df = pd.DataFrame(history, columns=['A1', 'B1', 'C1', 'A2', 'B2', 'C2', 'A3', 'B3', 'C3', 'Result'])
+    games_df = pd.DataFrame(history, columns=['A1', 'B1', 'C1', 'A2', 'B2', 'C2', 'A3', 'B3', 'C3', 'Result'])
+    #games_df = pd.merge(games_df, newgames_df)
+    games_df.to_csv('games.csv', index=False)
+    print()
+
+    # train sets
+    X_test_cls_char = games_df[games_df.columns[-1]][-20:]
+    games_df['Result'] = games_df['Result'].map({'_': 0, 'X': 1, 'O': 2})
+    games_df = games_df.astype(int)
+    X_train = games_df[games_df.columns[:-1]]
+    y_train = games_df[games_df.columns[-1]]
+
+    # fit regression tree
+    regr = DecisionTreeRegressor(max_depth=20)
+    regr.fit(X_train, y_train)
+
+    # predictions
+    X_test = games_df[games_df.columns[:-1]][-20:]
+    X_test_cls_num = games_df[games_df.columns[-1]][-20:]
+    y_test = regr.predict(X_test)
+    def to_class(n):
+        classes = {0: '_', 1: 'X', 2: 'O'}
+        return classes[n]
+    y_test_cls_char = map(to_class, [int(round(i, 0)) for i in y_test])
+    print("Test num: ", X_test_cls_num.values.tolist())  # test num classes
+    print("Pred num: ", [int(round(i, 0)) for i in y_test])  # predicted num classes
+    print("Test char: ", X_test_cls_char.values.tolist())  # test char classes
+    print("Pred char: ", list(y_test_cls_char))  # predicted char classes
 
 
 
