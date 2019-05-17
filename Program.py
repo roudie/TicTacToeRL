@@ -27,11 +27,14 @@ if __name__ == '__main__':
     agent1 = AgentQLearning(name = '1', learningRate = 0.9, discountFactor = 0.95)
     agent2 = DTRAgent(name='1', maxDepth=20)
 
+    #hist, result = demo_games(agent1, n=10000, show_result=True, generate_history=True)
+    #games_df = pd.DataFrame(hist, columns=['A1', 'B1', 'C1', 'A2', 'B2', 'C2', 'A3', 'B3', 'C3', 'Result'])
+    #games_df.to_csv('games.csv', index=False)
     history = []
     result_df = pd.DataFrame()
     for i in range(2):
         print(i)
-        hist, result = demo_games(agent2, n=100, show_result=False)
+        hist, result = demo_games(agent2, n=10000, show_result=True)
         history=history + hist
         hist, result = demo_games(agent2, n=10000, learn_agents=False, show_result=False)
         result['n'] = i*100 + 100
@@ -41,7 +44,7 @@ if __name__ == '__main__':
     print(result_df)
     ax = plt.gca()
     result_df.plot(kind='line', x='n', y='draw', ax=ax)
-    result_df.plot(kind='line', x='n', y='Agent Q-Learning 1', ax=ax)
+    result_df.plot(kind='line', x='n', y='Agent DecisionTreeRegressor 1', ax=ax)
     result_df.plot(kind='line', x='n', y='Random agent 1', ax=ax)
 
 
