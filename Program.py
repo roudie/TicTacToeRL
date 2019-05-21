@@ -1,6 +1,7 @@
 from Agents.RandomAgent import RandomAgent
 from Agents.AgentQLearning import AgentQLearning
 from Agents.DTRAgent import DTRAgent
+from Agents.AlfaBetaAgent import AlfaBetaAgent
 from GameCore.GameManagement import GameManagement
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -11,7 +12,7 @@ def demo_games(agent1, agent2=RandomAgent(), n=100, show_result=True, generate_h
     game = GameManagement(agent1, agent2)
     result = {agent1.__str__(): 0, agent2.__str__(): 0, 'draw': 0}
     history = []
-    for iter in range(n):
+    for iter in tqdm(range(n)):
         single_game_result = game.start(show=False, learn_agents=learn_agents)
         result[single_game_result] += 1
         if generate_history:

@@ -5,7 +5,7 @@ class TicTacToeGame():
 
     def __init__(self):
         self.state = '         '
-        self.player = 'X'
+        self.player = 'O'
         self.winner = None
 
     def allowed_next_states(self):
@@ -32,7 +32,7 @@ class TicTacToeGame():
         if self.winner:
             raise(Exception("Game already completed, cannot make another move!"))
         last_move_buff = next_move
-        next_move = self.state[:next_move - 1] + self.player + self.state[next_move:]
+        next_move = self.state[:next_move - 1] + marker + self.state[next_move:]
         if not self.__valid_move(next_move):
             raise(Exception("Cannot make move {} to {} for player {}".format(
                     self.state, next_move, self.player)))
@@ -49,14 +49,11 @@ class TicTacToeGame():
             self.player = 'X'
 
     def simulate(self, move):
-        x = '123456789'
-        y = x[:move - 1]
-        z = x[move:]
         next_state = self.state[:move - 1] + self.player + self.state[move:]
         return next_state
 
     def playable(self):
-        return ((not self.winner) and any(self.allowed_next_states()))
+        return (not self.winner) and any(self.allowed_next_states())
 
     def predict_winner(self, state):
         lines = [(0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6)]
