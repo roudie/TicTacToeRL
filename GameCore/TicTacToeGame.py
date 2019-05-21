@@ -2,6 +2,7 @@ class TicTacToeGame():
     last_move = None
     last_state = None
     last_player = None
+
     def __init__(self):
         self.state = '         '
         self.player = 'X'

@@ -1,6 +1,7 @@
 from Agents.IAgent import IAgent
 from random import randint
 
+
 class RandomAgent(IAgent):
     def __init__(self, name='1'):
         super().__init__(name)
