@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import os
 from tqdm import tqdm
 
+
 def demo_games(agent1, agent2=RandomAgent(), n=100, show_result=True, generate_history=False, learn_agents=True):
     game = GameManagement(agent1, agent2)
     result = {agent1.__str__(): 0, agent2.__str__(): 0, 'draw': 0}
@@ -26,7 +27,8 @@ def demo_games(agent1, agent2=RandomAgent(), n=100, show_result=True, generate_h
 
 if __name__ == '__main__':
     agent1 = AgentQLearning(name = '1', learningRate = 0.9, discountFactor = 0.95)
-
+    agent4 = AlfaBetaAgent(name='x')
+    hist, result = demo_games(agent4, n=20000, show_result=True, learn_agents=True)
     DTRAgents = []
     for filename in os.listdir('dataset'):
         DTRAgents.append(DTRAgent(name=filename,  maxDepth=30, file_name='dataset/'+filename))

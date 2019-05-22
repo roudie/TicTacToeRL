@@ -24,8 +24,8 @@ class AlfaBetaAgent(IAgent):
                         move,
                         self.marker),
                     self.change_player(self.marker),
-                    -2,
-                    2,
+                    -200,
+                    200,
                     True))
         extremum = np.max(move_values)
         indices = [i for i in range(len(move_values)) if move_values[i] == extremum]
@@ -39,19 +39,16 @@ class AlfaBetaAgent(IAgent):
         winner = self.game_class.predict_winner(state)
 
         available_moves = self.get_available_moves(state)
-        if self.game_class.winner or len(available_moves)==0:
-            #if len(available_moves)>0:
-            #    x = 1/len(available_moves)
-            #else:
-            #    x = 0
+
+        if winner or len(available_moves)==0:
             if winner == self.marker:
-                return 1
+                return 50 + len(available_moves)
             elif winner is not None:
-                return -1
+                return -50 - len(available_moves)
             else:
                 return 0
         if maximizingPlayer:
-            value = -2
+            value = -100
             for move in available_moves:
                 value = max(alfa,
                            self.alfa_beta(
@@ -62,12 +59,12 @@ class AlfaBetaAgent(IAgent):
                                False
                            ))
                 alfa = max(alfa, value)
-
+                #print('alpha ', alfa, '\t', 'beta: ', beta)
                 if alfa >= beta:
                     break
             return value
         else:
-            value = 2
+            value = 100
             for move in available_moves:
                 value = min(value,
                            self.alfa_beta(
