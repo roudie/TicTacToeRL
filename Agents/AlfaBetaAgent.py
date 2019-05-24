@@ -33,7 +33,7 @@ class AlfaBetaAgent(IAgent):
         return choice
 
     def __str__(self):
-        return "AlfaBeta " + self.name
+        return "AB " + self.name
 
     def alfa_beta(self, state, player, alfa, beta, maximizingPlayer):
         winner = self.game_class.predict_winner(state)

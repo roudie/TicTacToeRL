@@ -24,14 +24,14 @@ class DTRAgent(IAgent):
 
     def do_move(self, game):
         available_states, available_moves = game.allowed_next_states(), game.allowed_next_moves()
-        test_states = [[{' ': 0, 'X': 1, 'O': 2}[pos] for pos in st] for st in available_states]
+        test_states = [[{' ': 0, 'X': 1, 'O': -1}[pos] for pos in st] for st in available_states]
         predicted = self.DTR.predict(test_states)
         if game.player == 'O':
-            indices = [i for i in range(len(predicted)) if predicted[i] == np.max(predicted)]
-        else:
             indices = [i for i in range(len(predicted)) if predicted[i] == np.min(predicted)]
+        else:
+            indices = [i for i in range(len(predicted)) if predicted[i] == np.max(predicted)]
 
         return available_moves[random.choice(indices)]
 
     def __str__(self):
-        return "Agent DecisionTreeRegressor " + self.name
+        return "DTR " + self.name

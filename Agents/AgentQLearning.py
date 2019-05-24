@@ -24,4 +24,4 @@ class AgentQLearning(IAgent):
         return best_move
 
     def __str__(self):
-        return "Agent Q-Learning " + self.name
+        return "QL " + self.name

@@ -12,4 +12,4 @@ class RandomAgent(IAgent):
         return allowed_moves[randint(0, len(allowed_moves)-1)]
 
     def __str__(self):
-        return "Random agent " + self.name
+        return "R " + self.name

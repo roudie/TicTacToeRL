@@ -7,10 +7,13 @@ class GameManagement:
         self.agents = [agent1, agent2]
         self.history = []
 
-    def start(self, show=True, save_values=True, learn_agents=True):
+    def start(self, show=True, save_values=True, learn_agents=True, random_order=True):
         game = TicTacToeGame()
         self.history = []
-        self.currentAgentId = random.randint(0, 1)
+        if random_order:
+            self.currentAgentId = random.randint(0, 1)
+        else:
+            self.currentAgentId = 0
         if self.currentAgentId == 0:
             self.agents[0].set_marker('O')
             self.agents[1].set_marker('X')
@@ -59,7 +62,7 @@ class GameManagement:
             elif x == 'X':
                 ret_state.append(1)
             else:
-                ret_state.append(2)
+                ret_state.append(-1)
         return ret_state
 
     def add_winner_to_game_hist(self, winner):
