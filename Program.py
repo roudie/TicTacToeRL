@@ -39,9 +39,9 @@ if __name__ == '__main__':
         alfa_beta_agent = AlfaBetaAgent()
 
         QLearning_agents = []
-        for i in range(1, 9):
-            agent = AgentQLearning(name='R' + str((i)) + '0k', discountFactor=0.9, learningRate=0.9);
-            _, result = demo_games(agent, random_agent, n=(i)*10000, show_result=False, learn_agents=True, random_order=False)
+        for i in range(1, 10):
+            agent = AgentQLearning(name='R' + str((i)) + 'k', discountFactor=0.9, learningRate=0.9);
+            _, result = demo_games(agent, random_agent, n=(i)*1000, show_result=False, learn_agents=True, random_order=False)
             QLearning_agents.append(agent)
 
 
